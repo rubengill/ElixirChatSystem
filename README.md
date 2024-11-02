@@ -104,8 +104,7 @@ Users interact with the chat system using specific commands. Commands are case-s
 
 - **Command Variants**: `/NICK`, `/N`
 
-**Usage**:  
-/NICK <nickname>
+- **Usage**:  `/NICK <nickname>`
 - `<nickname>`: Nickname to register the process
 
 **Rules**:
@@ -115,7 +114,4 @@ Users interact with the chat system using specific commands. Commands are case-s
 - Nicknames must be unique.
 - Required before sending or receiving messages.
 
-**Examples**:
-/NICK homer
-/N homer 
-
+- **Examples**:  `/NICK homer`, `/N homer`
