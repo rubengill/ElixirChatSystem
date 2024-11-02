@@ -100,12 +100,12 @@ java ChatClient
 ## Commands
 
 Users interact with the chat system using specific commands. Commands are case-sensitive.
+
 ### Setting a Nickname
 
 - **Command Variants**: `/NICK`, `/N`
-
-- **Usage**:  `/NICK <nickname>`
-- `<nickname>`: Nickname to register the process
+- **Usage**: `/NICK <nickname>`
+  - `<nickname>`: The nickname to register the process.
 
 **Rules**:
 - Must start with an alphabet.
@@ -114,4 +114,115 @@ Users interact with the chat system using specific commands. Commands are case-s
 - Nicknames must be unique.
 - Required before sending or receiving messages.
 
-- **Examples**:  `/NICK homer`, `/N homer`
+**Examples**:
+- `/NICK homer`
+- `/N homer`
+
+## Responses
+
+- **Success**: Confirmation message.
+- **Failure**: Error indicating nickname is invalid or already in use.
+
+### Listing Active Users
+
+- **Command Variants**: `/LIST`, `/L`
+- **Usage**: `/LIST`
+
+**Description**: Retrieves a list of all currently registered nicknames.
+
+**Examples**:
+- `/LIST`
+- `/L`
+
+### Sending Direct Messages
+
+- **Command Variants**: `/SEND`, `/S`
+- **Usage**: `/SEND <nicknames> <message>`
+  - `<nicknames>`: One or more nicknames separated by semicolons (;).
+  - `<message>`: The message to be sent.
+
+**Examples**:
+- `/SEND homer hello world`
+- `/S homer;bart hello everyone`
+
+**Responses**:
+- **Success**: Message delivered confirmation.
+- **Failure**: Error indicating invalid command or recipients.
+
+### Broadcasting Messages
+
+- **Command Variants**: `/BCAST`, `/B`
+- **Usage**: `/BCAST <message>`
+
+**Examples**:
+- `/BCAST hello all`
+- `/B this is a broadcast message`
+
+**Responses**:
+- **Success**: Message broadcast confirmation.
+- **Failure**: Error indicating invalid command.
+
+---
+
+## Testing
+
+To ensure the chat system functions correctly, follow these testing steps:
+
+1. **Start the Chat Server and Proxy Server**
+   - Run the following command:
+     ```
+     iex -S mix
+     Chat.ProxyServer.start()
+     ```
+
+2. **Run Multiple Java Clients**
+   - Open multiple terminal windows and run the Java client in each:
+     ```
+     javac ChatClient.java
+     java ChatClient
+     ```
+
+3. **Set Nicknames**
+   - In each client, set a unique nickname:
+     ```
+     /NICK user1
+     /NICK user2
+     ```
+
+4. **List Active Users**
+   - Use the `/LIST` command to verify active nicknames:
+     ```
+     /LIST
+     ```
+
+5. **Send Direct Messages**
+   - From `user1`, send a message to `user2`:
+     ```
+     /SEND user2 Hello, user2!
+     ```
+
+6. **Broadcast Messages**
+   - From `user1`, broadcast a message to all users:
+     ```
+     /BCAST Hello!
+     ```
+
+7. **Change Nicknames**
+   - Change a user's nickname and ensure the update reflects across all clients:
+     ```
+     /NICK newUser1
+     ```
+
+8. **Invalid Commands**
+   - Test invalid commands to ensure proper error handling:
+     ```
+     /RANDOM
+     /SEND hello
+     /NICK
+     ```
+
+---
+
+## License
+
+This project is licensed under the MIT License.
