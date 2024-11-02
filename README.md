@@ -1,6 +1,6 @@
 # Elixir Chat System
 
-An Elixir-based real-time messaging platform engineered to facilitate seamless communication between users over TCP connections. This system supports setting nicknames, listing active users, sending direct messages, and broadcasting messages to all users. A Java client is provided to interact with the chat server seamlessly.
+An Elixir-based real-time messaging platform created with Elixir to facilitate communication between users over TCP connections. This system supports setting nicknames, listing active users, sending direct messages, and broadcasting messages to all users. A Java client is provided to interact with the chat server seamlessly.
 
 ## Table of Contents
 
@@ -29,6 +29,7 @@ An Elixir-based real-time messaging platform engineered to facilitate seamless c
 - **Concurrent Connections**: Supports multiple simultaneous TCP connections.
 - **Robust Error Handling**: Validates commands and provides appropriate feedback.
 - **Persistent State**: Utilizes ETS tables for state management and crash recovery.
+- **Multiple Nodes**: Proxy Servers can be ran on different nodes
 
 ## Architecture
 
@@ -39,8 +40,8 @@ The system consists of two main Elixir modules and a Java client:
    - **Role**: A globally-registered GenServer that manages nicknames and message handling using ETS tables.
 
 2. **Chat.ProxyServer**
-   - **Type**: Supervisory Server (can be implemented as a GenServer)
-   - **Role**: Handles incoming TCP connections, spawns proxy processes for each client, and interfaces with the `Chat.Server`.
+   - **Type**: Proxy Server
+   - **Role**: Handles incoming TCP connections, spawns proxy processes for each client, each process interfaces with the `Chat.Server`.
 
 3. **Java Client**
    - **Functionality**: Connects to the `Chat.ProxyServer`, allows users to input commands, and displays messages from other users.
@@ -67,3 +68,54 @@ Ensure the following software is installed on your system to successfully set up
 ```bash
 git clone https://github.com/rubengill/ElixirChatSystem.git
 cd ElixirChatSystem
+```
+
+### 2. Compile the Elixir Project
+```bash
+mix compile
+```
+
+### 3. Start the Chat.Server
+```bash
+iex -S mix
+```
+
+### 4. Start the Chat.ProxyServer
+```bash
+Chat.ProxyServer.start()
+```
+
+### 5. Compile the Java Client 
+> **Note:** Ensure in the root mix directory
+```bash
+javac ChatClient.java
+```
+
+### 6. Run the Java Client 
+> **Note:** Ensure in the root mix directory
+```bash
+java ChatClient
+```
+
+## Commands
+
+Users interact with the chat system using specific commands. Commands are case-sensitive.
+### Setting a Nickname
+
+- **Command Variants**: `/NICK`, `/N`
+
+**Usage**:  
+/NICK <nickname>
+- `<nickname>`: Nickname to register the process
+
+**Rules**:
+- Must start with an alphabet.
+- Can contain alphanumeric characters and underscores.
+- Maximum length of 10 characters.
+- Nicknames must be unique.
+- Required before sending or receiving messages.
+
+**Examples**:
+/NICK homer
+/N homer 
+
