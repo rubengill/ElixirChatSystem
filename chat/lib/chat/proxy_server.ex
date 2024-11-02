@@ -1,7 +1,7 @@
 defmodule Chat.ProxyServer do
   require Logger
 
-  # Create listening socket on the server
+  # Creates listening socket on the server
   def start(port \\ 6666) do
     opts = [:binary, active: true, packet: :line, reuseaddr: true]
     {:ok, listen_socket} = :gen_tcp.listen(port, opts)
