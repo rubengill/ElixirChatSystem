@@ -27,7 +27,7 @@ An Elixir-based real-time messaging platform created with Elixir to facilitate c
 - **Direct Messaging**: Send messages to specific users.
 - **Broadcast Messaging**: Send messages to all registered users.
 - **Concurrent Connections**: Supports multiple simultaneous TCP connections.
-- **Robust Error Handling**: Validates commands and provides appropriate feedback.
+- **Error Handling**: Validates commands and provides appropriate feedback.
 - **Persistent State**: Utilizes ETS tables for state management and crash recovery.
 - **Multiple Nodes**: Proxy Servers can be ran on different nodes
 
@@ -118,8 +118,7 @@ Users interact with the chat system using specific commands. Commands are case-s
 - `/NICK homer`
 - `/N homer`
 
-## Responses
-
+**Responses**:
 - **Success**: Confirmation message.
 - **Failure**: Error indicating nickname is invalid or already in use.
 
@@ -147,7 +146,7 @@ Users interact with the chat system using specific commands. Commands are case-s
 
 **Responses**:
 - **Success**: Message delivered confirmation.
-- **Failure**: Error indicating invalid command or recipients.
+- **Failure**: Error indicating invalid recipients.
 
 ### Broadcasting Messages
 
@@ -160,7 +159,7 @@ Users interact with the chat system using specific commands. Commands are case-s
 
 **Responses**:
 - **Success**: Message broadcast confirmation.
-- **Failure**: Error indicating invalid command.
+- **Failure**: No users to broadcast message too.
 
 ---
 
@@ -177,8 +176,8 @@ To ensure the chat system functions correctly, follow these testing steps:
 
 2. **Run Multiple Java Clients**
    - Open multiple terminal windows and run the Java client in each:
+   > **Note:** Ensure ChatClient.java is compiled
      ```
-     javac ChatClient.java
      java ChatClient
      ```
 
