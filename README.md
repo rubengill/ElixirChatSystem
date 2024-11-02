@@ -133,6 +133,10 @@ Users interact with the chat system using specific commands. Commands are case-s
 - `/LIST`
 - `/L`
 
+**Responses**:
+- **Success**: Retreives all active users.
+- **Failure**: Error indicating failure to retreive users.
+
 ### Sending Direct Messages
 
 - **Command Variants**: `/SEND`, `/S`
@@ -159,7 +163,7 @@ Users interact with the chat system using specific commands. Commands are case-s
 
 **Responses**:
 - **Success**: Message broadcast confirmation.
-- **Failure**: No users to broadcast message too.
+- **Failure**: Error sending message.
 
 ---
 
